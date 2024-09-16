@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${post.title}">Post Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1 th:text="${post.title}">Post Title</h1>
+    </header>
+
+    <div class="container">
+        <p th:text="${post.content}">Post Content</p>
+
+        <a href="/posts">Back to All Posts</a> |
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}">Edit</a> |
+        <form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Blog</p>
+    </footer>
+</body>
+</html>
