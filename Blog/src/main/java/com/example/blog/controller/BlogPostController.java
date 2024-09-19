@@ -16,10 +16,16 @@ public class BlogPostController {
     @Autowired
     private BlogPostService blogPostService;
 
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("posts", blogPostService.getAllPosts());
+        return "index";
+    }
+
     @GetMapping
     public String listPosts(Model model) {
         model.addAttribute("posts", blogPostService.getAllPosts());
-        return "posts"; // Returns to posts.html view
+        return "posts";
     }
 
     @GetMapping("/{id}")
@@ -27,16 +33,16 @@ public class BlogPostController {
         Optional<BlogPost> post = blogPostService.getPostById(id);
         if (post.isPresent()) {
             model.addAttribute("post", post.get());
-            return "post"; 
+            return "post";
         } else {
             return "redirect:/posts";
-    }
+        }
     }
 
     @GetMapping("/create")
     public String createPostForm(Model model) {
         model.addAttribute("post", new BlogPost());
-        return "create-post"; 
+        return "create-post";
     }
 
     @PostMapping
@@ -50,7 +56,7 @@ public class BlogPostController {
         Optional<BlogPost> post = blogPostService.getPostById(id);
         if (post.isPresent()) {
             model.addAttribute("post", post.get());
-            return "edit-post"; 
+            return "edit-post";
         } else {
             return "redirect:/posts";
         }
